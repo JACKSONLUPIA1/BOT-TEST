@@ -82,28 +82,28 @@ def searchWords(str_test, arr):
         for letter in str_test:
             if letter != '|':
                 pos_letter.append(letter + str(str_test.index(letter)))
-    # SEARCHES THE FIRST LETTER
+              
+    # 1
     if str_test != "|||||":
         for word in arr:
           if pos_letter[0][0] in word:
             if pos_letter[0][1] == str(word.index(pos_letter[0][0])):
               temp_arr.append(word)
     
-        # IF A SECOND LETTER IS VALID, IT WILL RUN THROUGH AGAIN
+        # 2
         if len(pos_letter) > 1:
           for word in temp_arr:
             if pos_letter[1][0] in word and pos_letter[1][1] == str(word.index(pos_letter[1][0])):
-              # print("REMOVED 2 : " + word)
               temp_arr2.append(word)
               
-        # THIRD LETTER TEST
+        # 3
         if len(pos_letter) > 2:
           for word in temp_arr2:
             if pos_letter[2][0] in word:
               if pos_letter[2][1] == str(word.index(pos_letter[2][0])):
                 temp_arr3.append(word)
         
-        # FOUR LETTER TEST
+        # 4
         if len(pos_letter) == 4:
           for word in temp_arr3:
             if pos_letter[3][0] in word:
@@ -179,12 +179,10 @@ def findBest(arr):
             
 # 1
 null = removeNull(wordArr)
-# yellow = removeYellow(null)
 green_test = getUserInput()
 new_green_str = getPos(green_test)
 search_test_idk = searchWords(new_green_str, null)
 print("ENGINE FINDS BEST: " + findBest(search_test_idk))
-# print(search_test_idk)
 
 # 2
 confirm = int(input("Continue?: \n 0 = No \n 1 = Yes "))
@@ -193,7 +191,6 @@ if confirm == 1:
     green_test1 = getUserInput()
     new_green_str1 = getPos(green_test1)
     search_test_idk1 = searchWords(new_green_str1, null1)
-    # print(search_test_idk1)
 else:
     print(search_test_idk)
   
@@ -205,7 +202,6 @@ if confirm == 1:
     green_test2 = getUserInput()
     new_green_str2 = getPos(green_test2)
     search_test_idk2 = searchWords(new_green_str2, null2)
-    # print(search_test_idk2)
 else:
     print(search_test_idk1)
 # 4
@@ -216,7 +212,6 @@ if confrim == 1:
     green_test3 = getUserInput()
     new_green_str3 = getPos(green_test3)
     search_test_idk3 = searchWords(new_green_str3, null3)
-    # print(search_test_idk3)
 else:
     print(search_test_idk2)
 # 5 
@@ -227,6 +222,6 @@ if confirm == 1:
     green_test4 = getUserInput()
     new_green_str4 = getPos(green_test4)
     search_test_idk4 = searchWords(new_green_str4, null4)
-    print("FINAL LIST OF ANSWERS: " + str(search_test_idk4))
+    print("FINAL LIST OF WORDS: " + str(search_test_idk4))
 else:
     print(search_test_idk3)
