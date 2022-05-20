@@ -183,7 +183,7 @@ null = removeNull(wordArr)
 green_test = getUserInput()
 new_green_str = getPos(green_test)
 search_test_idk = searchWords(new_green_str, null)
-print(findBest(search_test_idk))
+print("ENGINE FINDS BEST: " + findBest(search_test_idk))
 # print(search_test_idk)
 
 # 2
@@ -197,7 +197,7 @@ if confirm == 1:
 else:
     print(search_test_idk)
   
-print(findBest(search_test_idk1))
+print("ENGINE FINDS BEST: " + findBest(search_test_idk1))
 confirm = int(input("Continue?: \n 0 = No \n 1 = Yes "))
 # 3
 if confirm == 1:
@@ -209,7 +209,7 @@ if confirm == 1:
 else:
     print(search_test_idk1)
 # 4
-print(findBest(search_test_idk2))
+print("ENGINE FINDS BEST: " + findBest(search_test_idk2))
 confrim = int(input("Continue?: \n 0 = No \n 1 = Yes "))
 if confrim == 1:
     null3 = removeNull(search_test_idk2)
@@ -220,13 +220,13 @@ if confrim == 1:
 else:
     print(search_test_idk2)
 # 5 
-print(findBest(search_test_idk3))
+print("ENGINE FINDS BEST: " + findBest(search_test_idk3))
 confirm = int(input("Continue?: \n 0 = No \n 1 = Yes "))
 if confirm == 1:
     null4 = removeNull(search_test_idk3)
     green_test4 = getUserInput()
     new_green_str4 = getPos(green_test4)
     search_test_idk4 = searchWords(new_green_str4, null4)
-    print("FINAL: " + str(search_test_idk4))
+    print("FINAL LIST OF ANSWERS: " + str(search_test_idk4))
 else:
     print(search_test_idk3)
