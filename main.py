@@ -5,21 +5,6 @@ wordArr = []
 with open('words.txt') as f:
     for line in f:
         wordArr.append(line.strip())
-
-def removeYellow(arr):
-    temp_arr = []
-    yellowLen = int(input("How many yellow letters: "))
-    if yellowLen == 27:
-        for word in arr:
-            temp_arr.append(word)
-        return temp_arr
-    for i in range(yellowLen):
-        letterYellow = str(input("Letter: "))
-    for word in arr:
-        if letterYellow in word:
-        # print("REMOVED Y: " + word)
-            temp_arr.append(word)
-    return temp_arr
     
 def getPos(word):
     test_str = '|||||'
@@ -37,6 +22,55 @@ def getUserInput():
     green_array_str = ''.join(map(str, green))
     return green_array_str
 
+def removeNull(arr):
+    null_arr = []
+    temp_arr = []
+    temp_arr2 = []
+    temp_arr3 = []
+    temp_arr4 = []
+    temp_arr5  = []
+    
+    nullLen = int(input("How many letters not in word: "))
+    for i in range(nullLen):
+        letterNull = str(input("Letter: "))
+        null_arr.append(letterNull)
+    if nullLen != 0:
+      for word in arr:
+          if null_arr[0] not in word:
+              temp_arr.append(word)
+    # 2 
+    if nullLen > 1:
+        for word in temp_arr:
+            if null_arr[1] not in word:
+                temp_arr2.append(word)
+    # 3 
+    if nullLen > 2:
+        for word in temp_arr2:
+            if null_arr[2] not in word:
+                temp_arr3.append(word)
+    #4
+    if nullLen > 3:
+        for word in temp_arr3:
+            if null_arr[3] not in word:
+                temp_arr4.append(word)
+    #5 
+    if nullLen > 4:
+        for word in temp_arr4:
+            if null_arr[4] not in word:
+                temp_arr5.append(word)
+    if nullLen == 1:
+        return temp_arr
+    if nullLen == 2:
+        return temp_arr2
+    if nullLen == 3:
+        return temp_arr3
+    if nullLen == 4:
+        return temp_arr4
+    if nullLen == 5:
+        return temp_arr5
+    if nullLen == 0:
+      return arr
+    
 def searchWords(str_test, arr):
     temp_arr = []
     temp_arr2 = []
@@ -87,56 +121,61 @@ def searchWords(str_test, arr):
     else:
         return arr
 
-def removeNull(arr):
-    null_arr = []
-    temp_arr = []
-    temp_arr2 = []
-    temp_arr3 = []
-    temp_arr4 = []
-    temp_arr5  = []
-    
-    nullLen = int(input("How many letters not in word: "))
-    for i in range(nullLen):
-        letterNull = str(input("Letter: "))
-        null_arr.append(letterNull)
-    for word in arr:
-        if null_arr[0] not in word:
-            temp_arr.append(word)
-    # 2 
-    if nullLen > 1:
-        for word in temp_arr:
-            if null_arr[1] not in word:
-                temp_arr2.append(word)
-    # 3 
-    if nullLen > 2:
-        for word in temp_arr2:
-            if null_arr[2] not in word:
-                temp_arr3.append(word)
-    #4
-    if nullLen > 3:
-        for word in temp_arr3:
-            if null_arr[3] not in word:
-                temp_arr4.append(word)
-    #5 
-    if nullLen > 4:
-        for word in temp_arr4:
-            if null_arr[4] not in word:
-                temp_arr5.append(word)
-    if nullLen == 1:
-        return temp_arr
-    if nullLen == 2:
-        return temp_arr2
-    if nullLen == 3:
-        return temp_arr3
-    if nullLen == 4:
-        return temp_arr4
-    if nullLen == 5:
-        return temp_arr5
-
 def findBest(arr):
-    # random oper for now but acutal equation will be made later
-    # use yellow words to figure the best word to try
+  temp_arr = []
+  temp_arr2 = []
+  temp_arr3 = []
+  temp_arr4 = []
+  
+  yellow = []
+  pos_letter_yellow = []
+  
+  yellowLen = int(input("How many yellow letters: "))
+  if yellowLen == 0:
     return random.choice(arr)
+  else:
+    for i in range(yellowLen):
+      letterYellow = str(input("Letter: "))
+      yellow.append(letterYellow)
+    yellow_array_str = ''.join(map(str, yellow))
+    yerr = getPos(yellow_array_str)
+    
+    for letter in yerr:
+      if letter != '|':
+        pos_letter_yellow.append(letter + str(yerr.index(letter)))
+        
+    if yerr != "|||||":
+      for word in arr:
+        if pos_letter_yellow[0][0] in word:
+          if pos_letter_yellow[0][1] != str(word.index(pos_letter_yellow[0][0])):
+            temp_arr.append(word)
+
+      if len(pos_letter_yellow) > 1:
+        for word in temp_arr:
+          if pos_letter_yellow[1][0] in word:
+            if pos_letter_yellow[1][1] != str(word.index(pos_letter_yellow[1][0])):
+              temp_arr2.append(word)
+
+      if len(pos_letter_yellow) > 2:
+        for word in temp_arr2:
+          if pos_letter_yellow[2][0] in word:
+            if pos_letter_yellow[2][1] != str(word.index(pos_letter_yellow[2][0])):
+              temp_arr3.append(word)
+
+      if len(pos_letter_yellow) == 4:
+        for word in temp_arr3:
+          if pos_letter_yellow[3][0] in word:
+            if pos_letter_yellow[3][1] != str(word.index(pos_letter_yellow[3][0])):
+              temp_arr4.append(word)
+              
+  if len(pos_letter_yellow) == 1:
+    return random.choice(temp_arr)
+  if len(pos_letter_yellow) == 2:
+    return random.choice(temp_arr2)
+  if len(pos_letter_yellow) == 3:
+    return random.choice(temp_arr3)
+  if len(pos_letter_yellow) == 4:
+    return random.choice(temp_arr4)
             
 # 1
 null = removeNull(wordArr)
@@ -144,12 +183,12 @@ null = removeNull(wordArr)
 green_test = getUserInput()
 new_green_str = getPos(green_test)
 search_test_idk = searchWords(new_green_str, null)
+print(findBest(search_test_idk))
 # print(search_test_idk)
 
 # 2
 confirm = int(input("Continue?: \n 0 = No \n 1 = Yes "))
 if confirm == 1:
-    print(findBest(search_test_idk))
     null1 = removeNull(search_test_idk)
     green_test1 = getUserInput()
     new_green_str1 = getPos(green_test1)
@@ -157,10 +196,11 @@ if confirm == 1:
     # print(search_test_idk1)
 else:
     print(search_test_idk)
+  
+print(findBest(search_test_idk1))
 confirm = int(input("Continue?: \n 0 = No \n 1 = Yes "))
 # 3
 if confirm == 1:
-    print(findBest(search_test_idk1))
     null2 = removeNull(search_test_idk1)
     green_test2 = getUserInput()
     new_green_str2 = getPos(green_test2)
@@ -169,9 +209,9 @@ if confirm == 1:
 else:
     print(search_test_idk1)
 # 4
+print(findBest(search_test_idk2))
 confrim = int(input("Continue?: \n 0 = No \n 1 = Yes "))
 if confrim == 1:
-    print(findBest(search_test_idk2))
     null3 = removeNull(search_test_idk2)
     green_test3 = getUserInput()
     new_green_str3 = getPos(green_test3)
@@ -180,9 +220,9 @@ if confrim == 1:
 else:
     print(search_test_idk2)
 # 5 
+print(findBest(search_test_idk3))
 confirm = int(input("Continue?: \n 0 = No \n 1 = Yes "))
 if confirm == 1:
-    print(findBest(search_test_idk3))
     null4 = removeNull(search_test_idk3)
     green_test4 = getUserInput()
     new_green_str4 = getPos(green_test4)
