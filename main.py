@@ -1,13 +1,6 @@
 import random
 
 wordArr = []
-userGuessArr = []
-debugArr = []
-green = []
-greenPos = []
-yellowPos = []
-
-wordGuess = "zebra"
 
 with open('words.txt') as f:
     for line in f:
@@ -197,5 +190,3 @@ if confirm == 1:
     print("FINAL: " + str(search_test_idk4))
 else:
     print(search_test_idk3)
-
-
