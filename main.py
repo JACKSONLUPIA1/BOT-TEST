@@ -142,6 +142,7 @@ def removeNull(arr):
 
 def findBest(arr):
     # random oper for now but acutal equation will be made later
+    # use yellow words to figure the best word to try
     return random.choice(arr)
             
 # 1
@@ -153,8 +154,8 @@ search_test_idk = searchWords(new_green_str, null)
 # print(search_test_idk)
 
 # 2
-confrim = int(input("Continue?: \n 0 = No \n 1 = Yes "))
-if confrim == 1:
+confirm = int(input("Continue?: \n 0 = No \n 1 = Yes "))
+if confirm == 1:
     print(findBest(search_test_idk))
     null1 = removeNull(search_test_idk)
     green_test1 = getUserInput()
@@ -163,9 +164,9 @@ if confrim == 1:
     # print(search_test_idk1)
 else:
     print(search_test_idk)
-confrim = int(input("Continue?: \n 0 = No \n 1 = Yes "))
+confirm = int(input("Continue?: \n 0 = No \n 1 = Yes "))
 # 3
-if confrim == 1:
+if confirm == 1:
     print(findBest(search_test_idk1))
     null2 = removeNull(search_test_idk1)
     green_test2 = getUserInput()
@@ -186,13 +187,15 @@ if confrim == 1:
 else:
     print(search_test_idk2)
 # 5 
-confrim = int(input("Continue?: \n 0 = No \n 1 = Yes "))
-if confrim == 1:
+confirm = int(input("Continue?: \n 0 = No \n 1 = Yes "))
+if confirm == 1:
     print(findBest(search_test_idk3))
     null4 = removeNull(search_test_idk3)
     green_test4 = getUserInput()
     new_green_str4 = getPos(green_test4)
     search_test_idk4 = searchWords(new_green_str4, null4)
-    # print(search_test_idk4)
+    print("FINAL: " + str(search_test_idk4))
 else:
     print(search_test_idk3)
+
+
