@@ -78,10 +78,9 @@ def searchWords(str_test, arr):
     temp_arr4 = []
     pos_letter = []
     length = len(str_test)
-    if length == 5:
-        for letter in str_test:
-            if letter != '|':
-                pos_letter.append(letter + str(str_test.index(letter)))
+    for letter in str_test:
+        if letter != '|':
+            pos_letter.append(letter + str(str_test.index(letter)))
               
     # 1
     if str_test != "|||||":
@@ -99,15 +98,13 @@ def searchWords(str_test, arr):
         # 3
         if len(pos_letter) > 2:
           for word in temp_arr2:
-            if pos_letter[2][0] in word:
-              if pos_letter[2][1] == str(word.index(pos_letter[2][0])):
+            if pos_letter[2][0] in word and pos_letter[2][1] == str(word.index(pos_letter[2][0])):
                 temp_arr3.append(word)
         
         # 4
-        if len(pos_letter) == 4:
+        if len(pos_letter) > 3:
           for word in temp_arr3:
-            if pos_letter[3][0] in word:
-              if pos_letter[3][1] == str(word.index(pos_letter[3][0])):
+            if pos_letter[3][0] in word and pos_letter[3][1] == str(word.index(pos_letter[3][0])):
                 temp_arr4.append(word)
             
     if len(pos_letter) == 1:
@@ -146,26 +143,22 @@ def findBest(arr):
         
     if yerr != "|||||":
       for word in arr:
-        if pos_letter_yellow[0][0] in word:
-          if pos_letter_yellow[0][1] != str(word.index(pos_letter_yellow[0][0])):
+        if pos_letter_yellow[0][0] in word and pos_letter_yellow[0][1] != str(word.index(pos_letter_yellow[0][0])):
             temp_arr.append(word)
 
       if len(pos_letter_yellow) > 1:
         for word in temp_arr:
-          if pos_letter_yellow[1][0] in word:
-            if pos_letter_yellow[1][1] != str(word.index(pos_letter_yellow[1][0])):
+          if pos_letter_yellow[1][0] in word and pos_letter_yellow[1][1] != str(word.index(pos_letter_yellow[1][0])):
               temp_arr2.append(word)
 
       if len(pos_letter_yellow) > 2:
         for word in temp_arr2:
-          if pos_letter_yellow[2][0] in word:
-            if pos_letter_yellow[2][1] != str(word.index(pos_letter_yellow[2][0])):
+          if pos_letter_yellow[2][0] in word and pos_letter_yellow[2][1] != str(word.index(pos_letter_yellow[2][0])):
               temp_arr3.append(word)
 
-      if len(pos_letter_yellow) == 4:
+      if len(pos_letter_yellow) > 3:
         for word in temp_arr3:
-          if pos_letter_yellow[3][0] in word:
-            if pos_letter_yellow[3][1] != str(word.index(pos_letter_yellow[3][0])):
+          if pos_letter_yellow[3][0] in word and pos_letter_yellow[3][1] != str(word.index(pos_letter_yellow[3][0])):
               temp_arr4.append(word)
               
   if len(pos_letter_yellow) == 1:
@@ -193,10 +186,10 @@ if confirm == 1:
     search_test_idk1 = searchWords(new_green_str1, null1)
 else:
     print(search_test_idk)
-  
+ 
+# 3
 print("ENGINE FINDS BEST: " + findBest(search_test_idk1))
 confirm = int(input("Continue?: \n 0 = No \n 1 = Yes "))
-# 3
 if confirm == 1:
     null2 = removeNull(search_test_idk1)
     green_test2 = getUserInput()
@@ -204,6 +197,7 @@ if confirm == 1:
     search_test_idk2 = searchWords(new_green_str2, null2)
 else:
     print(search_test_idk1)
+    
 # 4
 print("ENGINE FINDS BEST: " + findBest(search_test_idk2))
 confrim = int(input("Continue?: \n 0 = No \n 1 = Yes "))
@@ -214,6 +208,7 @@ if confrim == 1:
     search_test_idk3 = searchWords(new_green_str3, null3)
 else:
     print(search_test_idk2)
+    
 # 5 
 print("ENGINE FINDS BEST: " + findBest(search_test_idk3))
 confirm = int(input("Continue?: \n 0 = No \n 1 = Yes "))
@@ -222,6 +217,9 @@ if confirm == 1:
     green_test4 = getUserInput()
     new_green_str4 = getPos(green_test4)
     search_test_idk4 = searchWords(new_green_str4, null4)
-    print("FINAL LIST OF WORDS: " + str(search_test_idk4))
+    print("ENGINE FINDS BEST: " + findBest(search_test_idk3) + '\n')
 else:
     print(search_test_idk3)
+
+if confirm == 1:
+    print("FINAL LIST OF WORDS: " + str(search_test_idk4))
