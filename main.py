@@ -134,6 +134,7 @@ def findBest(arr):
     for i in range(yellowLen):
       letterYellow = str(input("Letter: "))
       yellow.append(letterYellow)
+      
     yellow_array_str = ''.join(map(str, yellow))
     yerr = getPos(yellow_array_str)
     
@@ -175,9 +176,9 @@ null = removeNull(wordArr)
 green_test = getUserInput()
 new_green_str = getPos(green_test)
 search_test_idk = searchWords(new_green_str, null)
-print("ENGINE FINDS BEST: " + findBest(search_test_idk))
 
 # 2
+print("ENGINE FINDS BEST: " + findBest(search_test_idk))
 confirm = int(input("Continue?: \n 0 = No \n 1 = Yes "))
 if confirm == 1:
     null1 = removeNull(search_test_idk)
