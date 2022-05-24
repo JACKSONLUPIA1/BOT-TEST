@@ -1,6 +1,8 @@
 import random
 
 wordArr = []
+global_yellow = []
+global_green = []
 
 with open('words.txt') as f:
     for line in f:
@@ -19,6 +21,7 @@ def getUserInput():
     for i in range(greenLen):
         letterGreen = str(input("Letter: "))
         green.append(letterGreen.lower())
+        global_green.append(letterGreen.lower())
     green_array_str = ''.join(map(str, green))
     return green_array_str
 
@@ -34,6 +37,27 @@ def removeNull(arr):
     for i in range(nullLen):
         letterNull = str(input("Letter: "))
         null_arr.append(letterNull)
+    
+    # Remove Dupes
+    # IN TEST PHASE MIGHT NOT WORD OR MIGHT CAUSE ERRORS
+    for letter in global_green:
+        if letter in null_arr:
+            print("DUPE REMOVED GREEN: " + letter)
+            null_arr.remove(letter)
+            for word in arr:
+                if word.count(letter) > 1:
+                    arr.remove(word)
+            
+    for letter in global_yellow:
+        if letter in null_arr:
+            print("DUPE REMOVED YELLOW: " + letter)
+            null_arr.remove(letter)
+            for word in arr:
+                if word.count(letter) > 1:
+                    arr.remove(word)
+    
+    nullLen = len(null_arr)
+            
     if nullLen != 0:
       for word in arr:
           if null_arr[0] not in word:
@@ -58,6 +82,7 @@ def removeNull(arr):
         for word in temp_arr4:
             if null_arr[4] not in word:
                 temp_arr5.append(word)
+                
     if nullLen == 1:
         return temp_arr
     if nullLen == 2:
@@ -85,8 +110,7 @@ def searchWords(str_test, arr):
     # 1
     if str_test != "|||||":
         for word in arr:
-          if pos_letter[0][0] in word:
-            if pos_letter[0][1] == str(word.index(pos_letter[0][0])):
+          if pos_letter[0][0] in word and pos_letter[0][1] == str(word.index(pos_letter[0][0])):
               temp_arr.append(word)
     
         # 2
@@ -133,7 +157,8 @@ def findBest(arr):
   else:
     for i in range(yellowLen):
       letterYellow = str(input("Letter: "))
-      yellow.append(letterYellow)
+      yellow.append(letterYellow.lower())
+      global_yellow.append(letterYellow.lower())
       
     yellow_array_str = ''.join(map(str, yellow))
     yerr = getPos(yellow_array_str)
@@ -161,15 +186,20 @@ def findBest(arr):
         for word in temp_arr3:
           if pos_letter_yellow[3][0] in word and pos_letter_yellow[3][1] != str(word.index(pos_letter_yellow[3][0])):
               temp_arr4.append(word)
-              
+           
+       
   if len(pos_letter_yellow) == 1:
     return random.choice(temp_arr)
+    # return temp_arr
   if len(pos_letter_yellow) == 2:
     return random.choice(temp_arr2)
+    # return temp_arr2
   if len(pos_letter_yellow) == 3:
     return random.choice(temp_arr3)
+    # return temp_arr3
   if len(pos_letter_yellow) == 4:
     return random.choice(temp_arr4)
+    # return temp_arr4
             
 # 1
 null = removeNull(wordArr)
@@ -179,48 +209,29 @@ search_test_idk = searchWords(new_green_str, null)
 
 # 2
 print("ENGINE FINDS BEST: " + findBest(search_test_idk))
-confirm = int(input("Continue?: \n 0 = No \n 1 = Yes "))
-if confirm == 1:
-    null1 = removeNull(search_test_idk)
-    green_test1 = getUserInput()
-    new_green_str1 = getPos(green_test1)
-    search_test_idk1 = searchWords(new_green_str1, null1)
-else:
-    print(search_test_idk)
+null1 = removeNull(search_test_idk)
+green_test1 = getUserInput()
+new_green_str1 = getPos(green_test1)
+search_test_idk1 = searchWords(new_green_str1, null1)
  
 # 3
 print("ENGINE FINDS BEST: " + findBest(search_test_idk1))
-confirm = int(input("Continue?: \n 0 = No \n 1 = Yes "))
-if confirm == 1:
-    null2 = removeNull(search_test_idk1)
-    green_test2 = getUserInput()
-    new_green_str2 = getPos(green_test2)
-    search_test_idk2 = searchWords(new_green_str2, null2)
-else:
-    print(search_test_idk1)
+null2 = removeNull(search_test_idk1)
+green_test2 = getUserInput()
+new_green_str2 = getPos(green_test2)
+search_test_idk2 = searchWords(new_green_str2, null2)
     
 # 4
 print("ENGINE FINDS BEST: " + findBest(search_test_idk2))
-confrim = int(input("Continue?: \n 0 = No \n 1 = Yes "))
-if confrim == 1:
-    null3 = removeNull(search_test_idk2)
-    green_test3 = getUserInput()
-    new_green_str3 = getPos(green_test3)
-    search_test_idk3 = searchWords(new_green_str3, null3)
-else:
-    print(search_test_idk2)
-    
-# 5 
-print("ENGINE FINDS BEST: " + findBest(search_test_idk3))
-confirm = int(input("Continue?: \n 0 = No \n 1 = Yes "))
-if confirm == 1:
-    null4 = removeNull(search_test_idk3)
-    green_test4 = getUserInput()
-    new_green_str4 = getPos(green_test4)
-    search_test_idk4 = searchWords(new_green_str4, null4)
-    print("ENGINE FINDS BEST: " + findBest(search_test_idk3) + '\n')
-else:
-    print(search_test_idk3)
+null3 = removeNull(search_test_idk2)
+green_test3 = getUserInput()
+new_green_str3 = getPos(green_test3)
+search_test_idk3 = searchWords(new_green_str3, null3)
 
-if confirm == 1:
-    print("FINAL LIST OF WORDS: " + str(search_test_idk4))
+# 5
+print("ENGINE FINDS BEST: " + findBest(search_test_idk3))
+null4 = removeNull(search_test_idk3)
+green_test4 = getUserInput()
+new_green_str4 = getPos(green_test4)
+search_test_idk4 = searchWords(new_green_str4, null4)
+print("FINAL LIST OF WORDS: " + str(search_test_idk4))
