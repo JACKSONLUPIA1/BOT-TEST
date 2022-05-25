@@ -1,9 +1,6 @@
 import random
 
 wordArr = []
-global_yellow = []
-global_green = []
-global_null_arr = []
 
 with open('words.txt') as f:
     for line in f:
@@ -22,7 +19,6 @@ def getUserInput():
     for i in range(greenLen):
         letterGreen = str(input("Letter: "))
         green.append(letterGreen.lower())
-        global_green.append(letterGreen.lower())
     green_array_str = ''.join(map(str, green))
     return green_array_str
 
@@ -38,10 +34,6 @@ def removeNull(arr):
     for i in range(nullLen):
         letterNull = str(input("Letter: "))
         null_arr.append(letterNull)
-        global_null_arr.append(letterNull)
-    
-    nullLen = len(null_arr)
-            
     if nullLen != 0:
       for word in arr:
           if null_arr[0] not in word:
@@ -66,7 +58,6 @@ def removeNull(arr):
         for word in temp_arr4:
             if null_arr[4] not in word:
                 temp_arr5.append(word)
-                
     if nullLen == 1:
         return temp_arr
     if nullLen == 2:
@@ -94,7 +85,8 @@ def searchWords(str_test, arr):
     # 1
     if str_test != "|||||":
         for word in arr:
-          if pos_letter[0][0] in word and pos_letter[0][1] == str(word.index(pos_letter[0][0])):
+          if pos_letter[0][0] in word:
+            if pos_letter[0][1] == str(word.index(pos_letter[0][0])):
               temp_arr.append(word)
     
         # 2
@@ -135,59 +127,49 @@ def findBest(arr):
   yellow = []
   pos_letter_yellow = []
   
-  if len(arr) == 1:
-      return arr
+  yellowLen = int(input("How many yellow letters: "))
+  if yellowLen == 0:
+    return random.choice(arr)
   else:
-      yellowLen = int(input("How many yellow letters: "))
-      if yellowLen == 0:
-        return random.choice(arr)
-      else:
-        for i in range(yellowLen):
-          letterYellow = str(input("Letter: "))
-          yellow.append(letterYellow.lower())
-          global_yellow.append(letterYellow.lower())
-                    
-                    
-        yellow_array_str = ''.join(map(str, yellow))
-        yerr = getPos(yellow_array_str)
+    for i in range(yellowLen):
+      letterYellow = str(input("Letter: "))
+      yellow.append(letterYellow)
+      
+    yellow_array_str = ''.join(map(str, yellow))
+    yerr = getPos(yellow_array_str)
+    
+    for letter in yerr:
+      if letter != '|':
+        pos_letter_yellow.append(letter + str(yerr.index(letter)))
         
-        for letter in yerr:
-          if letter != '|':
-            pos_letter_yellow.append(letter + str(yerr.index(letter)))
-            
-        if yerr != "|||||":
-          for word in arr:
-            if pos_letter_yellow[0][0] in word and pos_letter_yellow[0][1] != str(word.index(pos_letter_yellow[0][0])):
-                temp_arr.append(word)
-    
-          if len(pos_letter_yellow) > 1:
-            for word in temp_arr:
-              if pos_letter_yellow[1][0] in word and pos_letter_yellow[1][1] != str(word.index(pos_letter_yellow[1][0])):
-                  temp_arr2.append(word)
-    
-          if len(pos_letter_yellow) > 2:
-            for word in temp_arr2:
-              if pos_letter_yellow[2][0] in word and pos_letter_yellow[2][1] != str(word.index(pos_letter_yellow[2][0])):
-                  temp_arr3.append(word)
-    
-          if len(pos_letter_yellow) > 3:
-            for word in temp_arr3:
-              if pos_letter_yellow[3][0] in word and pos_letter_yellow[3][1] != str(word.index(pos_letter_yellow[3][0])):
-                  temp_arr4.append(word)
-               
-           
-      if len(pos_letter_yellow) == 1:
-        return random.choice(temp_arr)
-        # return temp_arr
-      if len(pos_letter_yellow) == 2:
-        return random.choice(temp_arr2)
-        # return temp_arr2
-      if len(pos_letter_yellow) == 3:
-        return random.choice(temp_arr3)
-        # return temp_arr3
-      if len(pos_letter_yellow) == 4:
-        return random.choice(temp_arr4)
-        # return temp_arr4
+    if yerr != "|||||":
+      for word in arr:
+        if pos_letter_yellow[0][0] in word and pos_letter_yellow[0][1] != str(word.index(pos_letter_yellow[0][0])):
+            temp_arr.append(word)
+
+      if len(pos_letter_yellow) > 1:
+        for word in temp_arr:
+          if pos_letter_yellow[1][0] in word and pos_letter_yellow[1][1] != str(word.index(pos_letter_yellow[1][0])):
+              temp_arr2.append(word)
+
+      if len(pos_letter_yellow) > 2:
+        for word in temp_arr2:
+          if pos_letter_yellow[2][0] in word and pos_letter_yellow[2][1] != str(word.index(pos_letter_yellow[2][0])):
+              temp_arr3.append(word)
+
+      if len(pos_letter_yellow) > 3:
+        for word in temp_arr3:
+          if pos_letter_yellow[3][0] in word and pos_letter_yellow[3][1] != str(word.index(pos_letter_yellow[3][0])):
+              temp_arr4.append(word)
+              
+  if len(pos_letter_yellow) == 1:
+    return random.choice(temp_arr)
+  if len(pos_letter_yellow) == 2:
+    return random.choice(temp_arr2)
+  if len(pos_letter_yellow) == 3:
+    return random.choice(temp_arr3)
+  if len(pos_letter_yellow) == 4:
+    return random.choice(temp_arr4)
             
 # 1
 null = removeNull(wordArr)
@@ -215,13 +197,13 @@ null3 = removeNull(search_test_idk2)
 green_test3 = getUserInput()
 new_green_str3 = getPos(green_test3)
 search_test_idk3 = searchWords(new_green_str3, null3)
-
-# 5
+    
+# 5 
 print("ENGINE FINDS BEST: " + findBest(search_test_idk3))
 null4 = removeNull(search_test_idk3)
 green_test4 = getUserInput()
 new_green_str4 = getPos(green_test4)
 search_test_idk4 = searchWords(new_green_str4, null4)
-print("ENGINE FINDS BEST: " + findBest(search_test_idk4))
-print("FINAL LIST OF WORDS: " + str(search_test_idk4))
 
+print("ENGINE FINDS BEST: " + findBest(search_test_idk4) + '\n')
+print("FINAL LIST OF WORDS: " + str(search_test_idk4))
